@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block flowbite %}{% endblock flowbite %}
+
+{% block title %}Список сотрудников{% endblock title %}
+
+{% block content %}
+  <div class="flex items-center justify-between pb-1 m-10">
+    <div class="w-1/6 pr-2">
+      <button type="button" data-modal-target="add-target-modal" data-modal-toggle="add-target-modal"
+              class="relative inline-flex w-full items-center justify-center rounded-lg shadow-lg border border-gray-500 bg-[#23629F] py-1.5 hover:bg-[#0c70d4] focus:outline-none">
+        <img class="mr-2 h-12" src="{% static 'img/user_add_light.svg' %}" alt="">
+        <span class="font-light tracking-wide text-white text-base">
+          Добавить сотрудника
+        </span>
+      </button>
+    </div>
+  </div>
+
+  {% include 'src/_modal_add_employee.html' %}
+
+  <div class="mx-64 mt-10 mb-10 overflow-x-auto">
+    <table class="w-full text-left text-gray-500">
+      <thead class="text-black h-8 bg-white/40">
+      <tr class="divide-x">
+        <th scope="col" class="p-4 border-r border-r-black text-center rounded-l-3xl">
+          №
+        </th>
+        <th scope="col" class="px-8 py-3 text-center">
+          ФИО сотрудника
+        </th>
+        {% if user.is_staff %}
+          <th scope="col" class="px-6 py-3 border-l border-l-black text-center">
+            Должность
+          </th>
+        {% else %}
+          <th scope="col" class="px-6 py-3 border-l border-l-black text-center rounded-r-3xl">
+            Должность
+          </th>
+        {% endif %}
+        {% if user.is_staff %}
+          <th scope="col" class="px-6 py-3 rounded-r-3xl border-l border-l-black">
+            <div class="flex items-center justify-center">
+              <img src="{% static 'img/filter.svg' %}" alt="" sizes="" srcset="">
+            </div>
+          </th>
+        {% endif %}
+      </tr>
+      </thead>
+
+      <tbody>
+      {% for employee in employees %}
+        <tr class="divide-x" height="10">
+        </tr>
+        <tr
+                {% if user.is_staff %}
+                  class="bg-white/40 text-black hover:bg-white/20 clickable-row hover:cursor-pointer"
+                  data-href="{% url 'users:update_employee' employee.pk %}"
+                {% else %}
+                  class="bg-white/40 text-black"
+                {% endif %}
+        >
+          <td class="w-4 p-4 border-r border-r-black rounded-l-3xl">
+            <div class="text-center">
+              {{ forloop.counter }}
+            </div>
+          </td>
+          <th scope="row" class="flex items-center px-8 py-4 text-gray-900">
+            <div class="pl-3">
+              <div class="text-base font-semibold">
+                {{ employee.last_name }} {{ employee.first_name }}
+                {{ employee.patronymic }}
+              </div>
+              {% if employee.email %}
+                <div class="font-normal text-gray-500">{{ employee.username }} - {{ employee.email }}</div>
+              {% else %}
+                <div class="font-normal text-gray-500">{{ employee.username }}</div>
+              {% endif %}
+            </div>
+          </th>
+          {% if user.is_staff %}
+            <td class="px-6 py-4 border-r border-r-black border-l border-l-black">
+              {{ employee.position }}
+            </td>
+          {% else %}
+            <td class="px-6 py-4 border-l border-l-black rounded-r-3xl">
+              {{ employee.position }}
+            </td>
+          {% endif %}
+          {% if user.is_staff %}
+            <td class="px-6 py-4 rounded-r-3xl">
+              <a href="{% url 'users:password_change' employee.pk %}" type="button"
+                 class="font-medium text-blue-600 hover:underline flex justify-center">
+                <img src="{% static 'img/password_change.svg' %}" alt="" sizes="" srcset="">
+              </a>
+            </td>
+          {% endif %}
+        </tr>
+        <tr class="divide-x" height="10">
+        </tr>
+        </tbody>
+      {% endfor %}
+    </table>
+  </div>
+{% endblock content %}
+
+{% block scripts %}
+  <script src="{% static 'js/home.js' %}"></script>
+{% endblock %}

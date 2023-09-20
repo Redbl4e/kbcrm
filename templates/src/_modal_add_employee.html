@@ -1,0 +1,73 @@
+{% load static %}
+
+<div id="add-target-modal" tabindex="-1" aria-hidden="true"
+     class="fixed top-0 left-0 right-0 z-50 hidden w-auto mx-auto p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full bg-gray-600/40">
+  <div class="relative w-full h-full max-w-3xl md:h-auto">
+    <!-- Modal content -->
+    <div class="relative w-full">
+      <div class="px-6 py-6 lg:px-8">
+        <h3 class="mb-4 text-center tracking-wide font-medium text-gray-900 bg-gray-200 rounded-lg h-10">
+          <div class="flex items-center justify-center h-full">
+            Добавление нового сотрудника
+          </div>
+        </h3>
+        <form class="space-y-6" method="post" action="{% url 'users:create_employee' %}">
+          {% csrf_token %}
+          <div class="flex flex-row w-full">
+            <label for="last-name-add"
+                   class="text-sm font-medium tracking-wide text-gray-900 bg-gray-200 rounded-l-lg w-5/6 border-r border-r-black">
+              <div class="flex justify-center items-center h-full">
+                Фамилия
+              </div>
+            </label>
+            {{ form.last_name }}
+          </div>
+          <div class="flex flex-row w-full">
+            <label for="first-name-add"
+                   class="text-sm font-medium tracking-wide text-gray-900 bg-gray-200 rounded-l-lg w-5/6 border-r border-r-black">
+              <div class="flex justify-center items-center h-full">
+                Имя
+              </div>
+            </label>
+            {{ form.first_name }}
+          </div>
+          <div class="flex flex-row w-full">
+            <label for="patronymic-add"
+                   class="text-sm font-medium tracking-wide text-gray-900 bg-gray-200 rounded-l-lg w-5/6 border-r border-r-black">
+              <div class="flex justify-center items-center h-full">
+                Отчество
+              </div>
+            </label>
+            {{ form.patronymic }}
+          </div>
+          <div class="flex flex-row w-full">
+            <label for="position-add"
+                   class="text-sm font-medium tracking-wide text-gray-900 bg-gray-200 rounded-l-lg w-5/6 border-r border-r-black">
+              <div class="flex justify-center items-center h-full">
+                Должность
+              </div>
+            </label>
+            {{ form.position }}
+          </div>
+          <div class="flex flex-row w-full">
+            <label for="email-add"
+                   class="text-sm font-medium tracking-wide text-gray-900 bg-gray-200 rounded-l-lg w-5/6 border-r border-r-black">
+              <div class="flex justify-center items-center h-full">
+                Электронная почта
+              </div>
+            </label>
+            {{ form.email }}
+
+          </div>
+          <div class="flex items-center justify-center">
+            <button type="submit"
+                    class="flex flex-row items-center justify-center w-5/12 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+              <img class="w-9 mr-2" src="{% static 'img/user_add_light.svg' %}" alt="">
+              <span class="font-thin tracking-wide">Добавить сотрудника</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

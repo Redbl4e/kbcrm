@@ -1,0 +1,46 @@
+<div id="add-task-modal" tabindex="-1" aria-hidden="true"
+     class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
+  <div class="relative w-full h-full max-w-4xl md:h-auto">
+    <div class="relative bg-black rounded-lg shadow bg-opacity-50">
+      <div class="px-6 py-6 lg:px-8">
+        <div class="font-normal bg-[#454D56;] rounded-lg text-[#FFFFFF] py-4 text-center">
+          Добавление новой задачи
+        </div>
+
+        <form class="space-y-6" method="post" enctype="multipart/form-data">
+          <div class="relative mt-5">
+          {{ task_form.name }}
+          <label for="floating_filled"
+                 class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4">
+            Название задачи
+          </label>
+        </div>
+          <div class="mt-5">
+            {{ task_form.description }}
+          </div>
+          <div class="relative mt-5">
+
+            <label for="floating_filled"
+                   class="block mb-2 text-sm font-medium text-white">
+              Ответственный
+            </label>
+            {{ task_form.executor }}
+          </div>
+          <div class="relative mt-5">
+            {{ task_form.deadline }}
+            <label for="floating_filled"
+                   class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] left-2.5 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4">
+              Срок сдачи
+            </label>
+          </div>
+          {{ file_form }}
+          <button type="submit"
+                  class="w-full text-white bg-[#23629F] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+            Отправить задачу исполнителю
+          </button>
+          {% csrf_token %}
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

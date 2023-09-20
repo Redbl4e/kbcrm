@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Chart</title>
+  <link rel="stylesheet" href="../static_dev/css/dist/output.css">
+</head>
+
+<body class="h-full bg-body-gradient font-montserrat">
+  <div class="flex justify-center items-center w-4/5 border h-10 mx-auto mt-5 border-black text-center text-chart rounded-lg shadow-md">
+    <button type="button" class="font-thin tracking-wider">
+      Кафедра специальных информационных технологий
+    </button>
+  </div>
+  <div class="h-[75vh] border border-black mx-10 mt-5 rounded-lg flex flex-col items-center justify-between shadow-md">
+    <div class="mb-4 mt-2 h-5 text-chart tracking-wider">
+      Эффективность работы подразделения за последние 15 дней
+    </div>
+    <div class="mt-5 h-full w-5/6 flex justify-between">
+      <div class="w-full relative">
+        <canvas id="test_chart_1"></canvas>
+      </div>
+      <div class="m-5 w-3/6 flex justify-center items-center">
+        <div class="relative">
+          <canvas id="test_chart_2"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../node_modules/chart.js/dist/chart.umd.js"></script>
+  <script src="chart_test.js"></script>
+</body>
+
+</html>

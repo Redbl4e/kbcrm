@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block content %}
+  <div class="flex justify-center items-center w-4/5 border h-10 mx-auto mt-5 border-black text-center text-chart rounded-lg shadow-md">
+    <div class="tracking-wider font-semibold">
+      {{ group_name }}
+    </div>
+  </div>
+  <div class="h-[70%] border border-black mx-10 mt-5 pb-5 rounded-lg flex flex-col items-center justify-between shadow-md">
+    <div class="mb-4 mt-2 h-5 text-chart tracking-wider">
+      Эффективность работы подразделения за последние 30 дней
+    </div>
+    <div class="mt-5 h-full w-5/6 flex justify-between">
+      <div class="w-2/3 h-full mr-10">
+        <canvas class="h-full" id="efficiencyUsers"></canvas>
+      </div>
+      <div class="w-1/3 h-full">
+        <canvas class="h-full" id="efficiencyDivision"></canvas>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+
+{% block scripts %}
+  <script>
+      let usersCtx = document.getElementById("efficiencyUsers").getContext("2d");
+      let efficiencyUsers = new Chart(usersCtx, {
+          type: "bar",
+          options: {
+              maintainAspectRatio: false
+          }
+      });
+
+      let divisionCtx = document.getElementById("efficiencyDivision").getContext("2d");
+      let efficiencyDivision = new Chart(divisionCtx, {
+          type: "pie",
+          options: {
+              maintainAspectRatio: false
+          }
+      });
+  </script>
+  <script>
+      $(document).ready(function () {
+          loadAllCharts(30)
+      })
+
+      function loadChart(chart, endpoint) {
+          $.ajax({
+              url: endpoint,
+              type: "GET",
+              dataType: "json",
+              success: (jsonResponse) => {
+                  // Extract data from the response
+                  const title = jsonResponse.title;
+                  const labels = jsonResponse.data.labels;
+                  const datasets = jsonResponse.data.datasets;
+
+                  // Reset the current chart
+                  chart.data.datasets = [];
+                  chart.data.labels = [];
+
+                  // Load new data into the chart
+                  chart.options.title.text = title;
+                  chart.options.title.display = true;
+                  chart.data.labels = labels;
+                  datasets.forEach(dataset => {
+                      chart.data.datasets.push(dataset);
+                  });
+                  chart.update();
+              },
+              error: () => console.log("Failed to fetch chart data from " + endpoint + "!")
+          });
+      }
+
+      function loadAllCharts(days) {
+          loadChart(efficiencyUsers, `/api/user_tasks/${days}/`);
+          loadChart(efficiencyDivision, `/api/division_tasks/${days}/`);
+      }
+  </script>
+{% endblock scripts %}

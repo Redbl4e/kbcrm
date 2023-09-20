@@ -1,0 +1,95 @@
+{% load static %}
+<nav class="bg-all-header-color font-extrabold tracking-wide">
+  <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+    <div class="relative flex h-16 items-center justify-between">
+      <div class="flex flex-1 items-center justify-center sm:justify-start">
+        <div class="flex flex-shrink-0 items-center">
+          <a href="{% url 'tasks:home' %}">
+            <img class="block h-11 w-auto lg:hidden max-w-none" src="{% static 'img/logo.svg' %}" alt="Your Company">
+            <img class="hidden h-11 w-auto lg:block max-w-none" src="{% static 'img/logo.svg' %}" alt="Your Company">
+          </a>
+        </div>
+        <div class="hidden sm:ml-6 sm:block">
+          <div class="flex space-x-4">
+            <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+            {% url 'tasks:home' as home_url %}
+            <a href="{{ home_url }}"
+               class="{% if request.path == home_url %}bg-active-button-grad text-white
+                      {% else %}text-gray-300 hover:bg-active-button-grad hover:text-white
+                      {% endif %}px-3 py-2 rounded-md text-sm font-medium">
+              Мои задачи
+            </a>
+            <!-- FIXME нет "активной" когда на самой странице -->
+            {% if user.is_staff %}
+              {% with user.groups.get as user_group_name %}
+                {% url 'tasks:efficiency' user_group_name as efficiency_url %}
+                <a href="{{ efficiency_url }}"
+                   class="{% if request.path == efficiency_url %}bg-active-button-grad text-white
+                      {% else %}text-gray-300 hover:bg-active-button-grad hover:text-white
+                      {% endif %}px-3 py-2 rounded-md text-sm font-medium">
+                  Эффективность
+                </a>
+              {% endwith %}
+              <a href="#"
+                 class="text-gray-300 hover:bg-active-button-grad hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                Документы
+              </a>
+            {% endif %}
+            {% url 'users:division' as division_url %}
+            <a href="{{ division_url }}"
+               class="{% if request.path == division_url %}bg-active-button-grad text-white
+                      {% else %}text-gray-300 hover:bg-active-button-grad hover:text-white
+                      {% endif %}px-3 py-2 rounded-md text-sm font-medium"
+               aria-current="page">
+              Подразделение
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+        <button type="button" class="rounded-full bg-all-header-color hover:bg-active-button-grad p-1">
+          <img src="{% static 'img/user-profile.svg' %}" width="40" alt="image description">
+        </button>
+        <!-- Profile dropdown -->
+        <div class="relative ml-3 bg-gray-700">
+          <a href="{% url 'users:logout' %}">
+            <button type="submit"
+                    class="bg-indigo-500 group relative flex w-full justify-center rounded-md border
+                           border-transparent py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2"
+                    style="background-color: #23629F;">
+              Выйти
+            </button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Mobile menu, show/hide based on menu state. -->
+  <div class="sm:hidden" id="mobile-menu">
+    <div class="space-y-1 px-2 pt-2 pb-3">
+      <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+      <a href="{{ home_url }}"
+         class="{% if request.path == home_url %}bg-gray-900 text-white
+                {% else %}text-gray-300 hover:bg-gray-700 hover:text-white
+                {% endif %} block px-3 py-2 rounded-md text-base font-medium" aria-current="page">
+        Мои задачи
+      </a>
+      <a href="{{ efficiency_url }}"
+         class="{% if request.path == efficiency_url %}bg-gray-900 text-white
+                {% else %}text-gray-300 hover:bg-gray-700 hover:text-white
+                {% endif %} block px-3 py-2 rounded-md text-base font-medium">
+        Эффективность
+      </a>
+      <a href="#"
+         class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+        Документы
+      </a>
+      <a href="{{ division_url }}"
+         class="{% if request.path == division_url %}bg-gray-900 text-white
+                {% else %}text-gray-300 hover:bg-gray-700 hover:text-white
+                {% endif %} block px-3 py-2 rounded-md text-base font-medium">
+        Подразделение
+      </a>
+    </div>
+  </div>
+</nav>

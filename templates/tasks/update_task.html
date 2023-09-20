@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="w-full p-4 md:inset-0">
+    <div class="relative w-full h-[90vh] flex justify-center items-center">
+      <div class="px-6 py-6 lg:px-8 w-[48rem] mx-auto">
+        <div class="font-normal bg-[#454D56;] rounded-lg text-[#FFFFFF] py-4 text-center">
+          Подробности о задаче
+        </div>
+        <form class="space-y-6" method="post">
+          <div class="mt-5 flex">
+            <span class="w-[23%] text-center inline-flex justify-center items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+              Название задачи
+            </span>
+            <span class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              {{ task.name }}
+            </span>
+          </div>
+          <div class="mt-5 flex">
+            <span class="w-[23%] text-center inline-flex justify-center items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                  Описание задачи
+            </span>
+            <div class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              {{ task.description }}
+            </div>
+          </div>
+          <div class="mt-5 flex">
+            <span class="w-[23%] text-center inline-flex justify-center items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+              Поручитель
+            </span>
+            <span class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            {{ task.guarantor.last_name }} {{ task.guarantor.first_name }} {{ task.guarantor.patronymic }}
+            </span>
+          </div>
+          <div class="mt-5 flex">
+            <span class="w-[23%] text-center inline-flex justify-center items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+              Ответственный/ые
+            </span>
+            <div class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              {% for ex in task.executor.all %}
+                <span class="block my-1">
+                  {{ ex.first_name|slice:1 }}.{{ ex.patronymic|slice:1 }}. {{ ex.last_name }}
+                </span>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="mt-5 flex">
+            <span class="w-[23%] text-center inline-flex justify-center items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+              Статус
+            </span>
+            {{ form.status }}
+          </div>
+          <div class="mt-5 flex">
+            <span class="w-[23%] text-center inline-flex justify-center items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+              Срок выполнения
+            </span>
+            <span class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              до {{ task.deadline }}
+            </span>
+          </div>
+          {% with task_files=task.file.all %}
+            {% if task_files %}
+              <div class="mt-5 flex">
+              <span class="w-[23%] text-center inline-flex justify-center items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                Прикреплённые файлы
+              </span>
+                <div class="rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  {% for file in task_files %}
+                    <a href="{{ file }}" class="block my-0.5 text-blue-600 hover:text-blue-800">
+                      {{ file.filename }}
+                    </a>
+                  {% endfor %}
+                </div>
+              </div>
+            {% endif %}
+          {% endwith %}
+          <button type="submit"
+                  class="mt-5 py-4 w-full text-white bg-[#23629F] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+            Сохранить изменения
+          </button>
+          {% csrf_token %}
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

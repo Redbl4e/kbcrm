@@ -1,0 +1,28 @@
+{
+  "name": "kbcrm",
+  "version": "1.0.0",
+  "dependencies": {
+    "axios": "^1.2.5",
+    "chart.js": "^4.2.0",
+    "flowbite": "^1.6.2",
+    "tailwind-scrollbar": "^2.1.0",
+    "tailwindcss": "^3.2.4",
+    "vue": "^3.2.36"
+  },
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/domovoided/kbcrm.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/domovoided/kbcrm/issues"
+  },
+  "homepage": "https://github.com/domovoided/kbcrm#readme"
+}

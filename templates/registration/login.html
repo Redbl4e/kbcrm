@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block navbar %}{% endblock navbar %}
+
+{% block login %}
+  <section class="bg-body-gradient overflow-hidden font-montserrat h-screen">
+  <span class="flex bg-header-color justify-center items-center h-12 w-screen mb-6 tracking-wider text-header text-white font-semibold">
+    Санкт-Петербургский университет МВД
+  </span>
+    <div class="flex flex-col items-center justify-center mx-auto drop-shadow-login-shadow h-[85vh]">
+      <div class="w-7/12 bg-white rounded-3xl shadow md:mt-0 sm:max-w-md xl:p-0">
+        <div class="text-center pt-6 pb-6 space-y-4 md:space-y-6">
+          <h1 class="text-form tracking-wide drop-shadow-xl font-normal leading-tight text-gray-900 text-center">
+            ВХОД В СИСТЕМУ
+          </h1>
+          <form class="space-y-4 md:space-y-6" method="post">
+            <div>
+              <input type="text" name="username" id="username"
+                     class="bg-white border-0 border-b-black border-b text-center text-gray-900 sm:text-sm block w-full p-2.5"
+                     placeholder="логин" required="">
+            </div>
+            <div>
+              <input type="password" name="password" id="password" placeholder="пароль"
+                     class="bg-white border-0 border-b-black border-b text-center text-gray-900 sm:text-sm block w-full p-2.5"
+                     required="">
+            </div>
+            <button type="submit"
+                    class="w-3/5 h-12 text-white tracking-widest bg-button-color hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+              ВОЙТИ
+            </button>
+            <div class="flex items-center justify-center">
+              <a href="{% url 'users:password_reset' %}"
+                 class="flex flex-row text-gray-400 font-medium hover:underline">
+                <img class="h-6 mr-1" src="{% static 'img/lock.svg' %}" alt="">
+                <p class="leading-normal">Забыли пароль?</p>
+              </a>
+            </div>
+            {% csrf_token %}
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+
+{% block footer %}{% endblock footer %}

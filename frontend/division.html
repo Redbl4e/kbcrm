@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Division</title>
+  <link rel="stylesheet" href="../dist/output.css">
+
+</head>
+
+<body class="bg-body-gradient font-montserrat">
+<!-- Заголовок таблицы: кнопка с модалкой добавления и переключение подразделений -->
+<div class="flex items-center justify-between pb-1 m-10">
+  <div class="w-[25%] pr-2">
+    <button type="button" data-modal-target="add-target-modal" data-modal-toggle="add-target-modal"
+            class="relative inline-flex w-full items-center justify-center rounded-lg shadow-lg border border-gray-500 bg-[#23629F] py-1.5 hover:bg-[#0c70d4] focus:outline-none">
+      <!-- Heroicon name: mini/plus -->
+      <img class="w-8 mr-2" src="img/user_add_light.svg" alt="">
+      <span class="font-thin tracking-wide text-white text-base">Добавить сотрудника</span>
+    </button>
+  </div>
+  <div class="w-5/6 relative">
+    <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
+            class="text-black text-base font-semibold border border-black shadow-lg w-full inline-flex items-center justify-center bg-add-user-bg hover:bg-[#23629F] focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg py-2.5 text-center"
+            type="button">Выберите подразделение
+      <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+           xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+      </svg>
+    </button>
+    <!-- Dropdown menu -->
+    <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-full">
+      <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownDefaultButton">
+        <li>
+          <a href="#" class="block px-4 py-2 hover:bg-gray-100">Тыл</a>
+        </li>
+        <li>
+          <a href="#" class="block px-4 py-2 hover:bg-gray-100">Факультет</a>
+        </li>
+        <li>
+          <a href="#" class="block px-4 py-2 hover:bg-gray-100">Управление
+            учебно-методической работой</a>
+        </li>
+        <li>
+          <a href="#" class="block px-4 py-2 hover:bg-gray-100">Кафедры</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Модалка под добавление сотрудника -->
+<div id="add-target-modal" tabindex="-1" aria-hidden="true"
+     class="fixed top-0 left-0 right-0 z-50 hidden w-auto mx-auto p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full bg-gray-600/40">
+  <div class="relative w-full h-full max-w-3xl md:h-auto">
+    <!-- Modal content -->
+    <div class="relative w-full">
+      <div class="px-6 py-6 lg:px-8">
+        <h3 class="mb-4 text-center tracking-wide font-medium text-gray-900 bg-gray-200 rounded-lg h-10">
+          <div class="flex items-center justify-center h-full">
+            Добавление нового сотрудника
+          </div>
+        </h3>
+        <form class="space-y-6" action="#">
+          <div class="flex flex-row w-full">
+            <label for="last-name-add"
+                   class="text-sm font-medium tracking-wide text-gray-900 bg-gray-200 rounded-l-lg w-5/6 border-r border-r-black">
+              <div class="flex justify-center items-center h-full">
+                Фамилия
+              </div>
+            </label>
+            <input type="text" name="last-name-add" id="last-name-add"
+                   class="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-r-lg w-full p-2.5"
+                   placeholder="" required>
+          </div>
+          <div class="flex flex-row w-full">
+            <label for="first-name-add"
+                   class="text-sm font-medium tracking-wide text-gray-900 bg-gray-200 rounded-l-lg w-5/6 border-r border-r-black">
+              <div class="flex justify-center items-center h-full">
+                Имя
+              </div>
+            </label>
+            <input type="text" name="first-name-add" id="first-name-add"
+                   class="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-r-lg w-full p-2.5"
+                   placeholder="" required>
+          </div>
+          <div class="flex flex-row w-full">
+            <label for="patronymic-add"
+                   class="text-sm font-medium tracking-wide text-gray-900 bg-gray-200 rounded-l-lg w-5/6 border-r border-r-black">
+              <div class="flex justify-center items-center h-full">
+                Отчество
+              </div>
+            </label>
+            <input type="text" name="patronymic-add" id="patronymic-add"
+                   class="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-r-lg w-full p-2.5"
+                   placeholder="" required>
+          </div>
+          <div class="flex flex-row w-full">
+            <label for="position-add"
+                   class="text-sm font-medium tracking-wide text-gray-900 bg-gray-200 rounded-l-lg w-5/6 border-r border-r-black">
+              <div class="flex justify-center items-center h-full">
+                Должность
+              </div>
+            </label>
+            <input type="text" name="position-add" id="position-add"
+                   class="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-r-lg w-full p-2.5"
+                   placeholder="" required>
+          </div>
+          <div class="flex flex-row w-full">
+            <label for="email-add"
+                   class="text-sm font-medium tracking-wide text-gray-900 bg-gray-200 rounded-l-lg w-5/6 border-r border-r-black">
+              <div class="flex justify-center items-center h-full">
+                Электронная почта
+              </div>
+            </label>
+            <input type="email" name="email-add" id="email-add"
+                   class="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-r-lg w-full p-2.5"
+                   placeholder="" required>
+          </div>
+          <div class="flex items-center justify-center">
+            <button type="submit"
+                    class="flex flex-row items-center justify-center w-5/12 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+              <img class="w-9 mr-2" src="img/user_add_light.svg" alt="">
+              <span class="font-thin tracking-wide">Добавить сотрудника</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Таблица с сотрудниками -->
+<div class="mx-64 mt-10 mb-10 overflow-x-auto">
+  <table class="w-full text-left text-gray-500">
+    <thead class="text-black h-8 bg-white/40">
+    <tr class="divide-x">
+      <th scope="col" class="p-4 border-r border-r-black text-center rounded-l-3xl">
+        №
+      </th>
+      <th scope="col" class="px-8 py-3 text-center">
+        ФИО сотрудника
+      </th>
+      <th scope="col" class="px-6 py-3 border-l border-l-black text-center">
+        Должность
+      </th>
+      <th scope="col" class="px-6 py-3 rounded-r-3xl border-l border-l-black">
+        <div class="flex items-center justify-center">
+          <img src="img/filter.svg" alt="" sizes="" srcset="">
+        </div>
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="divide-x" height="10">
+
+    </tr>
+    <tr class="bg-white/40 hover:bg-white/20 text-black">
+      <td class="w-4 p-4 border-r border-r-black rounded-l-3xl">
+        <div class="flex items-center">
+          <a class="w-full h-full" href="#" type="button" data-modal-target="editUserModal"
+             data-modal-show="editUserModal">
+            1
+          </a>
+        </div>
+      </td>
+      <th scope="row" class="flex items-center px-8 py-4 text-gray-900">
+        <a class="w-full h-full" href="#" type="button" data-modal-target="editUserModal"
+           data-modal-show="editUserModal">
+          <div class="pl-3">
+            <div class="text-base font-semibold">Жидков Дмитрий Николаевич</div>
+            <div class="font-normal text-gray-500">zhidkiy228@gmail.com</div>
+          </div>
+        </a>
+      </th>
+      <td class="px-6 py-4 border-r border-r-black border-l border-l-black">
+        <a class="w-full h-full" href="#" type="button" data-modal-target="editUserModal"
+           data-modal-show="editUserModal">
+          Начальник
+        </a>
+      </td>
+      <td class="px-6 py-4 rounded-r-3xl">
+        <a href="#" type="button" data-modal-target="change_password" data-modal-show="change_password"
+           class="font-medium text-blue-600 hover:underline flex justify-center">
+          <img src="img/password_change.svg" alt="" sizes="" srcset="">
+        </a>
+      </td>
+    </tr>
+    <tr class="divide-x" height="10">
+
+    </tr>
+    <tr class="bg-white/40 hover:bg-white/20 text-black">
+      <td class="w-4 p-4 border-r border-r-black rounded-l-3xl">
+        <a class="w-full h-full" href="#" type="button" data-modal-target="editUserModal"
+           data-modal-show="editUserModal">
+          <div class="flex items-center">
+            2
+          </div>
+        </a>
+      </td>
+      <th scope="row" class="flex items-center px-8 py-4 font-medium text-gray-900 whitespace-nowrap">
+        <a class="w-full h-full" href="#" type="button" data-modal-target="editUserModal"
+           data-modal-show="editUserModal">
+          <div class="pl-3">
+            <div class="text-base font-semibold">Чудаков Олег Евгеньевич</div>
+            <div class="font-normal text-gray-500">bonnie@gmail.com</div>
+          </div>
+        </a>
+      </th>
+      <td class="px-6 py-4 border-r border-r-black border-l border-l-black">
+        <a class="w-full h-full" href="#" type="button" data-modal-target="editUserModal"
+           data-modal-show="editUserModal">
+          Преподаватель
+        </a>
+      </td>
+      <td class="px-6 py-4 rounded-r-3xl">
+        <a href="#" type="button" data-modal-target="change_password" data-modal-show="change_password"
+           class="font-medium text-blue-600 hover:underline flex justify-center">
+          <img src="img/password_change.svg" alt="" sizes="" srcset="">
+        </a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Модалка под редактирование пользователя -->
+<div id="editUserModal" tabindex="-1" aria-hidden="true"
+     class="fixed top-0 left-0 right-0 z-50 hidden w-auto mx-auto p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full bg-gray-600/40">
+  <div class="relative w-full h-full max-w-3xl md:h-auto">
+    <!-- Modal content -->
+    <div class="relative w-full">
+      <div class="px-6 py-6 lg:px-8">
+        <h3 class="mb-4 text-center tracking-wide font-medium text-gray-900 bg-gray-200 rounded-lg h-10">
+          <div class="flex items-center justify-center h-full">
+            Редактирование сотрудника
+          </div>
+        </h3>
+        <form class="space-y-6" action="#">
+          <div class="flex flex-row w-full">
+            <label for="last-name-edit"
+                   class="text-sm font-medium tracking-wide text-gray-900 bg-gray-200 rounded-l-lg w-5/6 border-r border-r-black">
+              <div class="flex justify-center items-center h-full">
+                Фамилия
+              </div>
+            </label>
+            <input type="text" name="last-name-edit" id="last-name-edit"
+                   class="bg-gray-200 border border-gray-300 text-gray-900 text-sm text-center rounded-r-lg w-full p-2.5"
+                   placeholder="" value="Жидков" required>
+          </div>
+          <div class="flex flex-row w-full">
+            <label for="first-name-edit"
+                   class="text-sm font-medium tracking-wide text-gray-900 bg-gray-200 rounded-l-lg w-5/6 border-r border-r-black">
+              <div class="flex justify-center items-center h-full">
+                Имя
+              </div>
+            </label>
+            <input type="text" name="first-name-edit" id="first-name-edit"
+                   class="bg-gray-200 border border-gray-300 text-gray-900 text-sm text-center rounded-r-lg w-full p-2.5"
+                   placeholder="" value="Дмитрий" required>
+          </div>
+          <div class="flex flex-row w-full">
+            <label for="patronymic-edit"
+                   class="text-sm font-medium tracking-wide text-gray-900 bg-gray-200 rounded-l-lg w-5/6 border-r border-r-black">
+              <div class="flex justify-center items-center h-full">
+                Отчество
+              </div>
+            </label>
+            <input type="text" name="patronymic-edit" id="patronymic-edit"
+                   class="bg-gray-200 border border-gray-300 text-gray-900 text-sm text-center rounded-r-lg w-full p-2.5"
+                   placeholder="" value="Николаевич" required>
+          </div>
+          <div class="flex flex-row w-full">
+            <label for="position-edit"
+                   class="text-sm font-medium tracking-wide text-gray-900 bg-gray-200 rounded-l-lg w-5/6 border-r border-r-black">
+              <div class="flex justify-center items-center h-full">
+                Должность
+              </div>
+            </label>
+            <input type="text" name="position-edit" id="position-edit"
+                   class="bg-gray-200 border border-gray-300 text-gray-900 text-sm text-center rounded-r-lg w-full p-2.5"
+                   placeholder="" value="Начальник" required>
+          </div>
+          <div class="flex flex-row w-full">
+            <label for="email-edit"
+                   class="text-sm font-medium tracking-wide text-gray-900 bg-gray-200 rounded-l-lg w-5/6 border-r border-r-black">
+              <div class="flex justify-center items-center h-full">
+                Электронная почта
+              </div>
+            </label>
+            <input type="email" name="email-edit" id="email-edit"
+                   class="bg-gray-200 border border-gray-300 text-gray-900 text-sm text-center rounded-r-lg w-full p-2.5"
+                   placeholder="" value="zhidkiy228@gmail.com" required>
+          </div>
+          <div class="flex items-center justify-center">
+            <button type="submit"
+                    class="flex flex-row items-center justify-center w-5/12 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+              <img class="w-9 mr-2" src="img/user_add_light.svg" alt="">
+              <span class="font-thin tracking-wide">Сохранить изменения</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Модалка под смену пароля -->
+<div id="change_password" aria-hidden="true" tabindex="-1"
+     class="fixed top-0 left-0 right-0 z-50 hidden w-auto mx-auto p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full bg-gray-600/40">
+  <div class="relative w-full h-full max-w-xs md:h-auto">
+    <!-- Modal content -->
+    <div class="relative w-full">
+      <div class="px-6 py-6 lg:px-8 bg-white rounded-3xl shadow-md">
+        <div class="mb-4 flex justify-center h-1/3">
+          <img class="h-full" src="img/message.svg" alt="">
+        </div>
+        <h3 class="mb-8 text-lg text-center tracking-wide font-semibold text-gray-900 h-10">
+          Письмо с паролем отправлено!
+        </h3>
+        <div class="text-center text-sm tracking-wide">
+          Если письмо не пришло на почту,
+          пожалуйста убедитесь, что Вы ввели адрес электронной почты правильно
+          и проверьте папку со спамом
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../node_modules/flowbite/dist/flowbite.min.js"></script>
+</body>
+
+</html>
+
+<!--class="bg-body-gradient h-screen"-->

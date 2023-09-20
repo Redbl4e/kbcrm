@@ -1,0 +1,6 @@
+@import "static_dev/css/dist/output.css";
+
+.task-table-row:hover {
+    cursor: pointer;
+    background-color: rgb(255 255 255 / 0.5);
+}
